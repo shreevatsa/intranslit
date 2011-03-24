@@ -1,4 +1,6 @@
 /*
+Not yet complete.
+
 The base code for transliteration of Indian languages in general.
 
 In principle something like this could work for any set of alphabets, but I'm not seeking such generality.
