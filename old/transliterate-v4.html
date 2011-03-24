@@ -1,0 +1,63 @@
+<p>This is a test.</p>
+
+<script type="text/javascript" charset=UTF-8 src="json2.js"></script>
+<script type="text/javascript" charset=UTF-8 src="conversions.js"></script>
+<script>
+
+ta = ["devanagari", "harvardkyoto", "itrans", "velthius", "iast", "IAST"];
+
+function fixall(tarea) {
+    var u = window[tarea.id+"2u"](tarea.value);
+    //document.writeln(tarea.value + "becomes " + u);
+    for(var i in ta) {
+      t = ta[i];
+      if(t != tarea.id) {
+        document.getElementById(t).value = window["u2"+t](u);
+      }
+    }
+  }
+</script>
+
+<form name="blahform">
+<!-- <textarea id="itrans" onkeyup="fixall(this);"></textarea> -->
+<table>
+<script>
+  for(var i in ta) {
+  document.writeln('<tr><td>'+ta[i]+'</td><td><textarea cols=50 id="' + ta[i] + '" onkeyup="fixall(this);"></textarea></td></tr>');
+}
+
+document.writeln("This is " + JSON.stringify(velthiustrie) + "<br/>");
+</script>
+</form>
+
+Harvard-Kyoto: 
+<pre>a A i I u U
+R RR lR lRR
+e ai o au
+M H
+
+k kh g gh G 
+c ch j jh J 
+T Th D Dh N
+t th d dh n
+p ph b bh m
+y r l v 
+z S s h 
+</pre>
+
+ITRANS
+<pre>a aa/A i ii/I u uu/U 
+RRi/R^i RRI/R^I LLi/L^i LLI/L^I
+e ai o au
+M H
+
+k kh g gh ~N/N^
+ch Ch j jh ~n/JN
+T Th D Dh N
+t th d dh n
+p ph b bh m
+y r l v/w 
+sh Sh s h
+</pre>
+</p>
+

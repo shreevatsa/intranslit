@@ -1,0 +1,121 @@
+<head>
+  <title>Sanskrit transliteration</title>
+</head>
+
+<body>
+
+<p>If you do not have a way to input Sanskrit on your system, this
+page might help. However, you really ought to find a way to input
+Sanskrit directly.
+<a href="http://en.wikipedia.org/wiki/Help:Multilingual_support_(Indic)">
+These instructions</a> might help. Also see <a href="http://www.google.com/transliterate/indic">Google Indic transliteration</a> for some other languages. Some inspiration (but not code) from <a href="http://www.iit.edu/~laksvij/language/sanskrit.html">this page</a>. Feel free to grab the source and use it under the GPL.</p>
+
+<div class="entryarea">
+  If you enable Javascript, you can convert between the following transliteration schemes:
+  <ul>
+    <li>devanagari</li>
+    <li>harvardkyoto</li>
+    <li>itrans</li>
+    <li>velthuis</li>
+    <li>iast</li>
+    <li>IAST</li>
+  </ul>
+</div>
+
+</body>
+
+<script type="text/javascript" charset=UTF-8 src="json2.js"></script>
+<script type="text/javascript" charset=UTF-8 src="skconvert.js"></script>
+<script>
+
+var ta = [];
+function makeentryarea() {
+  var myolddiv = document.getElementsByClassName("entryarea")[0];
+  var taposs = myolddiv.getElementsByTagName("ul")[0].getElementsByTagName("li");
+  for(var i=0; i<taposs.length; ++i) {
+      ta.push(taposs[i].innerHTML);
+  }
+
+  /*This is part of the document; *really* ought to be done server-side*/
+  while(myolddiv.hasChildNodes()) myolddiv.removeChild(myolddiv.firstChild);
+  document.open();
+  for(var i=0; i<ta.length; ++i) {
+      // var mynewdiv = document.createElement('div'); mynewdiv.setAttribute('id', ta[i]+'div');
+
+      // var mytmppar = document.createElement('p'); mytmppar.appendChild(document.createTextNode(ta[i]));
+      // mynewdiv.appendChild(mytmppar);
+
+      // var mytarea = document.createElement('textarea'); mytarea.setAttribute('id', ta[i]);
+      // mynewdiv.appendChild(mytarea);
+
+      // myolddiv.appendChild(mynewdiv);
+
+      document.writeln('<div class="'+ta[i]+'div"> <p>' + ta[i] + '</p><textarea id="' + ta[i] + '"></textarea></div>');
+    }
+  document.close();
+}
+makeentryarea();
+</script>
+
+<script>
+function fixall(tarea) {
+    var u = SKconvert[tarea.id+"2u"](tarea.value);
+    //document.writeln(tarea.value + "becomes " + u);
+    for(var i=0; i<ta.length; ++i) {
+      var t = ta[i];
+      if(t != tarea.id) {
+        document.getElementById(t).value = SKconvert["u2"+t](u);
+      }
+    }
+  }
+
+function prepareTareas() {
+    var areas = document.getElementsByTagName('textarea');
+    for(var i=0; i<areas.length; ++i) {
+        areas[i].onkeyup=function() { return fixall(this); }
+    }
+}
+
+function addLoadEvent(func) {
+    var oldonload = window.onload;
+    if (typeof window.onload != 'function') {
+        window.onload = func;
+    } else {
+        window.onload = function() {
+            if (oldonload) {
+                oldonload();
+            }
+            func();
+        }
+    }
+}
+
+//addLoadEvent(makeentryarea);
+addLoadEvent(prepareTareas);
+</script>
+
+<style type="text/css">
+textarea {
+    width: 40%;
+    height: 20%;
+}
+
+div.devanagaridiv {
+    padding-left: 50%;
+}
+
+div.devanagaridiv textarea {
+    width: 100%;
+    height: 20%;
+}
+
+
+/*
+ * div.iastdiv { padding-left: 40%; }
+ * div.IASTdiv { padding-left: 40%; }
+ */
+
+div.formatlist {
+    display: none;
+}
+</style>

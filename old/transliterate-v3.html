@@ -1,0 +1,33 @@
+<p>This is a test.</p>
+
+<script>
+function convert_to_from(s, t, f) {
+  s = "from" + f + "(" + s + ")";
+  return t + "(" + s + ")";
+}
+
+ta = ["itrans", "iast", "harvardkyoto", "iso", "devanagari"];
+
+function fixall(tarea) {
+    //n = tarea.name;
+    //s = tarea.value;
+    //alert(n);
+    //alert("s is " + s);
+    for(var i in ta) {
+      t = ta[i];
+      if(t != tarea.name) {
+        document.blahform[t].value = convert_to_from(tarea.value, t, tarea.name);
+      }
+    }
+  }
+</script>
+
+<form name="blahform">
+<!-- <textarea name="itrans" onkeyup="fixall(this);"></textarea> -->
+<!-- <textarea name="iast"   onkeyup="fixall(this);"></textarea> -->
+<script>
+  for(var i in ta) {
+  document.writeln('<textarea name="' + ta[i] + '" onkeyup="fixall(this);"></textarea>');
+}
+</script>
+</form>

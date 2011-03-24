@@ -1,0 +1,98 @@
+<head>
+  <title>Sanskrit transliteration</title>
+</head>
+
+<body>
+<p>If you do not have a way to input Sanskrit on your system, this
+page might help. However, you really ought to find a way to input
+Sanskrit directly. 
+<a href="http://en.wikipedia.org/wiki/Help:Multilingual_support_(Indic)">
+These instructions</a> might help.</p>
+
+<div class="formatlist">
+The following formats are supported:
+  <ul>
+    <li>devanagari</li>
+    <li>harvardkyoto</li>
+    <li>itrans</li>
+    <li>velthius</li>
+    <li>iast</li>
+    <li>IAST</li>
+  </ul>
+</div>
+
+<div class="entryarea">
+</div>
+
+</body>
+
+<script>
+  var ta = [];
+  var taposs = document.getElementsByClassName("formatlist")[0].getElementsByTagName("ul")[0].getElementsByTagName("li");
+  for(var i=0; i<taposs.length; ++i) {
+      ta.push(taposs[i].innerHTML);
+  }
+
+  /*This is part of the document; ought to be done server-side*/
+    for(var i in ta) {
+	// var mynewdiv = document.createElement('div'); mynewdiv.setAttribute('id', ta[i]+'div');
+
+	// var mytmppar = document.createElement('p'); mytmppar.appendChild(document.createTextNode(ta[i]));
+	// mynewdiv.appendChild(mytmppar);
+
+	// var mytarea = document.createElement('textarea'); mytarea.setAttribute('id', ta[i]);
+	// mynewdiv.appendChild(mytarea);
+
+	// document.getElementsByClassName("entryarea")[0].appendChild(mynewdiv);
+
+	document.writeln('<div id="'+ta[i]+'div"> <p>' + ta[i] + '</p><textarea id="' + ta[i] + '"></textarea></div>')
+    }
+</script>
+
+<script type="text/javascript" charset=UTF-8 src="json2.js"></script>
+<script type="text/javascript" charset=UTF-8 src="conversions.js"></script>
+<script>
+function fixall(tarea) {
+    var u = window[tarea.id+"2u"](tarea.value);
+    //document.writeln(tarea.value + "becomes " + u);
+    for(var i in ta) {
+      t = ta[i];
+      if(t != tarea.id) {
+        document.getElementById(t).value = window["u2"+t](u);
+      }
+    }
+  }
+
+function prepareTareas() {
+    var areas = document.getElementsByTagName('textarea');
+    for(var i=0; i<areas.length; ++i) {
+	areas[i].onkeyup=function() { return fixall(this); }
+    }
+}
+
+function addLoadEvent(func) {
+    var oldonload = window.onload;
+    if (typeof window.onload != 'function') {
+	window.onload = func;
+    } else {
+	window.onload = function() {
+	    if (oldonload) {
+		oldonload();
+	    }
+	    func();
+	}
+    }
+}
+
+addLoadEvent(prepareTareas);
+</script>
+
+<style type="text/css">
+textarea {
+    width: 40%;
+    height: 20%;
+}
+div.formatlist {
+    display: none;
+}
+</style>

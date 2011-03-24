@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+  <title>Kannada transliteration</title>
+<style type="text/css">
+div { width:49%; border: 0px solid green; }
+div.devanagaridiv, div.htmldiv, div.iastdiv, div.IASTdiv, div.ipadiv { float:right; clear:right;}
+textarea { font-family: "Kedage", sans-serif;}
+div.harvardkyotodiv,div.itransdiv,div.velthuisdiv { float:left; clear:left;}
+textarea {
+    width: 90%;
+ height: 6em;
+}
+
+div.formatlist {
+    display: none;
+}
+</style>
+</head>
+
+<body>
+
+<p>Note: see <a href="http://en.wikipedia.org/wiki/Help:Multilingual_support_(Indic)">
+these instructions</a> for ways to input Indic scripts directly (without transliteration), or see <a href="http://www.google.com/transliterate/indic">Google Indic transliteration</a> for another way to input Kannada.</p>
+
+  <div class="entryarea">
+    If you enable Javascript, you can convert between the following transliteration schemes:
+    <ul>
+      <li title="devanagari">Kannada</li>
+      <li title="harvardkyoto"><a href="http://en.wikipedia.org/wiki/Devanagari_transliteration#Transliteration_Comparison">Harvard-Kyoto</a></li>
+      <li title="itrans"><a href="http://en.wikipedia.org/wiki/Devanagari_transliteration#Transliteration_Comparison">ITRANS</a></li>
+      <li title="iast"><a href="http://en.wikipedia.org/wiki/Devanagari_transliteration#Transliteration_Comparison">IAST</a>, lowercase</li>
+      <li title="IAST">IAST, uppercase</li>
+      <li title="velthuis"><a href="http://en.wikipedia.org/wiki/Devanagari_transliteration#Transliteration_Comparison">Velthuis</a> (for <a href="http://sanskrit.inria.fr/">INRIA</a>, etc.)</li>
+      <li title="html">HTML numeric character references</li>
+      <li title="ipa">IPA (approximate, incomplete, experimental!)</li>
+    </ul>
+  </div>
+
+<script type="text/javascript" charset=UTF-8 src="json2.js"></script>
+<script type="text/javascript" charset=UTF-8 src="convert-data-kn.js"></script>
+<script type="text/javascript" charset=UTF-8 src="convert-in.js"></script>
+<script>
+var ta = [];
+function makeentryarea() {
+  var myolddiv = document.getElementsByClassName("entryarea")[0];
+  var taposs = myolddiv.getElementsByTagName("ul")[0].getElementsByTagName("li");
+  for(var i=0; i<taposs.length; ++i) {
+    ta.push(taposs[i]);
+  }
+
+  /*This is part of the document; *really* ought to be done server-side*/
+  while(myolddiv.hasChildNodes()) myolddiv.removeChild(myolddiv.firstChild);
+  document.body.removeChild(myolddiv);
+  document.open();
+  for(var i=0; i<ta.length; ++i) {
+    /*
+    var mynewdiv = document.createElement('div'); mynewdiv.setAttribute('class', ta[i].getAttribute("title")+'div');
+    var mytmppar = document.createElement('p'); mytmppar.appendChild(document.createTextNode(ta[i].innerHTML));
+    mynewdiv.appendChild(mytmppar);
+    var mytarea = document.createElement('textarea'); mytarea.setAttribute('id', ta[i].getAttribute("title"));
+    mynewdiv.appendChild(mytarea);
+    myolddiv.appendChild(mynewdiv);
+    */
+
+    var tareahtml = '<textarea spellcheck="false" id="' + ta[i].getAttribute("title") + '"';
+    if(ta[i].getAttribute("title") === 'devanagari') { tareahtml += ' lang="kn"'; }
+    tareahtml +=  '></textarea>';
+    document.writeln('<div class="'+ta[i].getAttribute("title")+'div"> <p>' + ta[i].innerHTML + '<br/>' + tareahtml + '</div>');
+  }
+  document.close();
+}
+makeentryarea();
+
+/*
+if (!String.prototype.endsWith) {
+  String.prototype.endsWith = function(suffix) {
+    var startPos = this.length - suffix.length;
+    if (startPos < 0) {
+      return false;
+    }
+    return (this.lastIndexOf(suffix, startPos) == startPos);
+  };
+}
+
+//Reorder divs so that left/right works
+var rightdivs = { devanagaridiv:'', htmldiv:'', IASTdiv:'', iastdiv:'' };
+var leftdivs = { harvardkyotodiv:'', ITRANSdiv:'', velthuisdiv:''};
+var alldivs = document.getElementsByTagName("div");
+for(var i=0; i< alldivs.length; ++i) {
+  if (alldivs[i].getAttribute("class").endsWith("div")) {
+    alert("Found " + alldivs[i].getAttribute("class"));
+  }
+ }
+*/
+</script>
+
+<script>
+function fixall(tarea) {
+    var u = SKconvert[tarea.id+"2u"](tarea.value);
+    //document.writeln(tarea.value + "becomes " + u);
+    for(var i=0; i<ta.length; ++i) {
+      var t = ta[i].getAttribute("title");
+      if(t != tarea.id) {
+        document.getElementById(t).value = SKconvert["u2"+t](u);
+      }
+    }
+  }
+
+function prepareTareas() {
+    var areas = document.getElementsByTagName('textarea');
+    for(var i=0; i<areas.length; ++i) {
+        areas[i].onkeyup=function() { return fixall(this); }
+    }
+}
+
+function addLoadEvent(func) {
+    var oldonload = window.onload;
+    if (typeof window.onload != 'function') {
+        window.onload = func;
+    } else {
+        window.onload = function() {
+            if (oldonload) {
+                oldonload();
+            }
+            func();
+        }
+    }
+}
+
+//addLoadEvent(makeentryarea);
+addLoadEvent(prepareTareas);
+</script>
+
+
+</body>

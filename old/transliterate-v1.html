@@ -1,0 +1,15 @@
+<p>This is a test.</p>
+
+<script>
+  function makegood(tarea) {
+    tarea.value = document.getElementById('sansTransIn').value;
+  }
+</script>
+
+<form name="blahform">
+<textarea id="itrans" onkeyup="var s=document.getElementById('itrans').value; document.getElementById('iast').innerHTML=s; document.blahform.iast.value=s;"></textarea>
+
+<pre id="iast"></pre>
+
+<textarea name="iast" onkeyup="makegood(this);"></textarea>
+</form>

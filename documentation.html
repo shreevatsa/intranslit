@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title>Documentation for the JavaScript Sanskrit transliterator</title>
+</head>
+
+<body>
+<h1>Documentation</h1>
+
+<h2>What we want</h2>
+Let me use ITRANS-to-Devanagari as an example.
+
+In the spirt of Test-Driven Development (although this is being written
+after the code :P), here are a few tests:
+<ul>
+  <li>When the user types 'k', we need to see the string '&ka;&hal;',
+  which is Unicode two characters: &ka;+&hal;</li>
+  <li>When the user types 'ka', we need to see the string '&ka;', which is
+  one Unicode character.</li>
+  <li>When the user types 'kai', we need to see  the string '&ka;&ai;', which
+  is two characters: '&ka;'+'&ai;'.</li>
+</ul>
+
+<h2>How it works</h2>
+Javascript's canonical data structure -- called <tt>Object</tt> -- is an associative array (also known as hash table, map, etc.), so we use it.
+
+<h2>Bugs</h2>
+<ul>
+<li>It parses the whole string each time you type a letter. I expect that
+  it will be used only for transliterating short pieces of text (at a time),
+  so I do not view this as an urgent issue.</li>
+<li>It converts all CONSONANT+VIRAMA+VOWEL occurrences to CONSONANT+VOWEL.</li>
+<li>If you type "kaa" into Harvard-Kyoto you get [ka]+[a], but it is transliterated into ITRANS as "kaa" so if you then go to ITRANS and type something, the original Harvard-Kyoto changes to "kA" as well.</li>
+</ul>
+
+<hr>
+<address></address>
+<!-- hhmts start --> Last modified: Fri Oct 31 21:19:27 EDT 2008 <!-- hhmts end -->
+</body> </html>

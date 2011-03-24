@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title>About Sanskrit transliteration</title>
+</head>
+
+<body>
+  <li><a href="transliterate.html">My transliterator</a></li>
+  <li><a href="documentation.html">About my transliterator in particular</a></li>
+  <li><a href="http://people.w3.org/rishida/scripts/pickers/devanagari/">Devanagari character picker</a></li>
+  <li><a href="http://www.iit.edu/~laksvij/language/sanskrit.html">Romanized latin to Sanskrit</a></li>
+
+
+<h1>About Sanskrit transliteration</h1>
+
+<p>Sanskrit is usually written in the Devanagari script. (By some accounts,
+this convention is only a recent phenomenon, dating back to the late 19th
+century when the British undertook the printing of a large number of Sanskrit
+documents in the Devanagari script; before then Sanskrit was written in
+various scripts; for instance, all of Bhasa's works are known to us through
+manuscripts written in the Malayalam script.)</p>
+
+<p>For use in situations where using Devanagari is infeasible, various
+schemes have been devised to represent Sanskrit letters in a script other
+than Devanagari -- usually with English letters.</p>
+
+<p>In <em>print</em>, the most common is probably the International Alphabet
+of Sanskrit Transliteration (IAST), which uses English letters with
+diacritics. The need for Sanskrit transliteration in print came
+because of either:
+<ul>
+  <li>People studying Sanskrit who did not know the Devanagari script.</li>
+  <li>Printers who did not have a Sanskrit font, or found typesetting Sanskrit harder (which it is)</li>
+</ul>
+For these purposes, it is understandable how a system with diacritics
+came about.  The IAST has both uppercase and lowercase letters; entire
+books were supposed to be written in IAST after all.</p>
+
+<p>On the internet, however, the need for a system of Sanskrit
+transliteration arises because people do not have an easy way of
+inputting, or of even viewing, characters outside the normal range of
+the letters in the English alphabet.  The transliteration in this is
+case is not so much something to be read directly, as it is an
+"encoding", a way of expressing Sanskrit words when Sanskrit fonts are
+not available.  In this setting, a system with diacritics is not much
+help. It is as hard to input many of the IAST characters as it is to
+input Devanagari characters directly. Thus, the commonly used schemes
+are ASCII schemes that use only the "normal" letters, employing case
+to specify the correct letter.</p>
+
+Harvard-Kyoto:
+<pre>a A i I u U
+R RR lR lRR
+e ai o au
+M H
+
+k kh g gh G
+c ch j jh J
+T Th D Dh N
+t th d dh n
+p ph b bh m
+y r l v
+z S s h
+</pre>
+
+ITRANS
+<pre>a aa/A i ii/I u uu/U
+RRi/R^i RRI/R^I LLi/L^i LLI/L^I
+e ai o au
+M H
+
+k kh g gh ~N/N^
+ch Ch j jh ~n/JN
+T Th D Dh N
+t th d dh n
+p ph b bh m
+y r l v/w
+sh Sh s h
+</pre>
+</p>
+
+<p>
+Issues remain:
+
+<ul>
+<li> One is the question of what ligatures/glyphs you want. (See
+  pictures.)  Fortunately, this is not my problem. This is the web,
+  not print. All those glyphs are represented by the same Unicode
+  characters (which is what I give you), and the way the conjuncts are
+  rendered is entirely up to your end.</li>
+
+<li> Another is the question of what happens when (say) "[a][i]" occurs. The
+  English "ai" would produce "[ai]". Similarly when the consonants "k"
+  and "h" occur together but what is intended is not the consonant
+  "kh". So: if you want to specify this, you must delimit them
+  somehow.  I have decided that "a{}i", "k{}h" (etc.) be usd in these
+  cases, although they surely arise rarely.</li>
+
+<li>There are other characters (Chandrabindu, Avagraha, Virama) which
+  might occur frequently in Sanskrit, and other forms of letters
+  (consonants with a dot below them, the La letter, etc.) which might
+  more often occur when transcribing words from other languages in
+  Devanagari. I do not think it worthwhile to devise appropriate
+  letters that would fit into the various transliteration schemes,
+  please use the character picker when one of these arise.</li>
+
+<li>What if you want English text that you don't want converted? Put it
+  inside angular brackets thus:
+  saH rAmaH <He is Rama> sA sItA <She is Sita>
+  becomes
+  ...
+
+  [Footnote: When I say angular brackets, I actually mean the less
+  than and greater than characters on your keyboard.  They are not
+  actually angular brackets: angular brackets are something else: ]</li>
+
+</ul>
+
+
+
+
+
+<hr>
+<address></address>
+<!-- hhmts start --> Last modified: Fri Jan  9 07:56:57 EST 2009 <!-- hhmts end -->
+</body> </html>
