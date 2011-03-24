@@ -1,0 +1,132 @@
+@
+% Transliteration tool
+% R. Shreevatsa
+% 2010
+
+
+This document is a revisionist history of how I wrote a program.
+
+A couple of years after I first wrote the [Sanskrit transliterator][1],
+I went back and wanted to modify it. I couldn't easily understand what
+the program was doing (despite good comments), and I realised this is
+exactly what literate programming is for.
+
+[1]: http://web.mit.edu/vatsa/www/sanskrit/transliterate.html
+
+Introduction
+============
+
+The goal is to have a webpage which will convert, on-the-fly, between
+various scripts. To take the example of Sanskrit,
+
+----------------------------------------    --------------------
+**Devanagari**                              हरे राम हरे कृष्ण
+
+**IAST** (diacritics, case-insensitive)     hare rāma hare kṛṣṇa
+
+**Harvard-Kyoto** (ASCII, case-sensitive)   hare rAma hare kRSNa
+------------------------------------------------------------
+ 
+There are other transliteration schemes and variants, e.g.
+
+-----------------------------    --------------------
+**ITRANS** (a mongrel hybrid):   hare raama hare kRRiShNa
+
+**Velthuis** (used for TeX):     hare raama hare k.r.s.na
+
+**IAST uppercase** (diacritics): HARE RĀMA HARE KṚṢṆA
+------------------------------------------------------------
+
+and possibly other scripts and languages we may want to add later.
+
+Thus, probably 
+
+Unicode representation
+======================
+
+(Skip this section if you are already familiar with how Devanagari
+letters are represented in Unicode.)
+
+The Unicode representations of Harvard-Kyoto and IAST are natural enough:
+each letter is a separate glyph and corresponds to a particular *code
+point* (henceforth "codepoint", incorrectly).  For instance, **a** is
+U+0061, **A** is U+0041, **ā** is U+0101 ("LATIN SMALL LETTER A WITH
+MACRON"), **ṛ** is U+1E5B ("LATIN SMALL LETTER R WITH DOT BELOW") etc.
+
+So "hare rāma" corresponds to nine codepoints (including 0020 SPACE):
+
+    0068 0061 0072 0065 0020 0072 0101 006D 0061
+
+For Devanagari, the correspondence is less obvious, and is as follows.
+You can also play around with R. Ishida's [Devanagari character
+picker][2] to get an idea.
+
+[2]: http://people.w3.org/rishida/scripts/pickers/devanagari/
+
+There is a codepoint for each consonant (with the "inherent a" vowel included):
+
+    0915  क  DEVANAGARI LETTER KA
+    0916  ख  DEVANAGARI LETTER KHA
+    0917  ग  DEVANAGARI LETTER GA
+    0918  घ  DEVANAGARI LETTER GHA
+    etc.
+
+There is a codepoint for each "vowel sign":
+
+    093E    DEVANAGARI VOWEL SIGN AA
+    093F    DEVANAGARI VOWEL SIGN I
+    0940    DEVANAGARI VOWEL SIGN II
+    0941    DEVANAGARI VOWEL SIGN U
+    0942    DEVANAGARI VOWEL SIGN UU
+    etc.
+
+So each consonant+vowel glyph, where the vowel is not 'a', corresponds to
+two codepoints:
+
+    का 0915 093E
+    खा 0916 093E
+    खि 0916 093F
+    गि 0917 093F
+    घि 0918 093F
+    etc.
+
+Consonants without vowels, e.g. in conjuncts, are represented by [consonant] followed by ् ("094D: DEVANAGARI SIGN VIRAMA"). Thus:
+
+    ख्     0916 094D (DEVANAGARI LETTER KHA, DEVANAGARI SIGN VIRAMA)
+    मुख्य    092E 0941 0916 094D 092F (DEVANAGARI LETTER MA, DEVANAGARI VOWEL SIGN U, DEVANAGARI LETTER KHA, DEVANAGARI SIGN VIRAMA, DEVANAGARI LETTER YA)
+
+And vowels that do not follow a consonant (i.e. are at the beginning of words) take different forms in Devanagari, and correspond to different codepoints:
+
+    
+------   ----           --------------------
+    अ    0905           DEVANAGARI LETTER A
+    आ    0906           DEVANAGARI LETTER AA (different from 093E DEVANAGARI VOWEL SIGN AA)
+    इ    0907           DEVANAGARI LETTER I
+    ई    0908           DEVANAGARI LETTER II
+    उं   0909 0902      DEVANAGARI LETTER U, DEVANAGARI SIGN ANUSVARA
+    उः   0909 0903      DEVANAGARI LETTER U, DEVANAGARI SIGN VISARGA
+    कं   0915 0902      DEVANAGARI LETTER KA, DEVANAGARI SIGN ANUSVARA
+    कः   0915 0903      DEVANAGARI LETTER KA, DEVANAGARI SIGN VISARGA
+    कैः  0915 0948 0903 DEVANAGARI LETTER KA, DEVANAGARI VOWEL SIGN AI, DEVANAGARI SIGN VISARGA
+------------------------------------------------------------    
+
+Internal representation
+=======================
+
+The Unicode conventions described in the section above may correspond
+to the way writers of Devanagari think of the letters, but is
+irritating to deal with, since we need to treat the vowel **a** as a
+special case -- it does not correspond to the notation used by any of
+the English scripts, so this would make incremental transliteration
+difficult. Therefore, I instead made the somewhat strange choice of
+using the following "canonical" representation internally.
+
+It is a string of characters 
+
+
+
+
+<<*>>=
+/* Do the conversion */
+alert('Done');
+@ 
