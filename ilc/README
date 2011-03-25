@@ -1,0 +1,70 @@
+Description:
+===========
+
+Indian Language Converter is a tool to convert latin/roman (english
+letters) to Indic scripts.  Additionally, it also prints out the HTML
+values of the transliterated script if you need to use them directly
+in your website (as is done by this website --
+http://www.iit.edu/~laksvij/language/)
+
+Installation:
+============
+
+In the case that you want to run it on your local computer (which is
+probably why you have downloaded it in the first place), simply open
+the file index.html (or your preferred language) in your favorite
+browser.  Typically, it should just work and the results you get
+should be no different from what you see in the original website.
+
+In some cases, you might not get any output.  (This is usually the
+case in IE because it has several security flaws and rather than
+fixing them, the company decided to do away with some features that
+users might find helpful.) In this case, the browser usually gives out
+a warning which says (or the equivalent of), "This program is trying
+to execute a script which could potentially destroy your computer and
+the rest of the world."  If you want to use Indian Language Computer,
+you must tell the browser that you know what is going on and are all
+right with the script.
+
+Please note however, as mentioned in the file COPYING, this program
+comes with ABSOLUTELY NO WARRANTY.  I can tell you that it is safe and
+you are welcome to look at the source.  I do not make any
+``dangerous'' system calls etc.  (I don't know even know how to write
+that kind of code) but nonetheless, this program comes with NO
+WARRANTY.  Use at your own risk.
+
+If all those messages scare you, you're probably better off using the
+original site where the same disclaimers apply.
+
+Making Changes:
+==============
+
+NOTE: You don't have to read this section to use the tool as it is.
+
+Most of the change requests I have seen are to use a different
+transliteration scheme.  For instance, using "c" instead of "ch".  I
+shall make a walk through making this exact change in telugu.
+
+* The file that needs to be changed is telugu.js
+
+In the file, there will be some place which says
+
+> "ch" :  "&#3098;",
+
+change this to
+
+< "c" :  "&#3098;",
+
+Note that the < and > aren't actually in the file.
+
+Next you must change the consonants variable to reflect this change.
+(If you changed a vowel, you must change the vowels variable.)  I
+assume you already know enough about regexes.
+
+Alternatively, you can have the whole consonants variable generated
+using the regexem.py script.  I assume you know Python for this.  If
+not, www.python.org is not a bad place to start and it is a good
+decision to make (if you choose to learn the language).
+
+The best way of course, is to use ilcgen the Common Lisp program I
+used to write these pages.
