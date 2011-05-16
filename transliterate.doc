@@ -56,14 +56,11 @@ MACRON"), **ṛ** is U+1E5B ("LATIN SMALL LETTER R WITH DOT BELOW") etc.
 So "hare rāma" corresponds to nine codepoints (including 0020 SPACE):
 
     0068 0061 0072 0065 0020 0072 0101 006D 0061
+    h    a    r    e         r    ā    m    a
 
 For Devanagari, the correspondence is less obvious, and is as follows.
-You can also play around with R. Ishida's [Devanagari character
-picker][2] to get an idea.
 
-[2]: http://people.w3.org/rishida/scripts/pickers/devanagari/
-
-There is a codepoint for each consonant (with the "inherent a" vowel included):
+There is a codepoint for each *consonant* (with the "inherent a" vowel included):
 
     0915  क  DEVANAGARI LETTER KA
     0916  ख  DEVANAGARI LETTER KHA
@@ -71,7 +68,7 @@ There is a codepoint for each consonant (with the "inherent a" vowel included):
     0918  घ  DEVANAGARI LETTER GHA
     etc.
 
-There is a codepoint for each "vowel sign":
+There is a codepoint for each *vowel sign*:
 
     093E    DEVANAGARI VOWEL SIGN AA
     093F    DEVANAGARI VOWEL SIGN I
@@ -90,7 +87,7 @@ two codepoints:
     घि 0918 093F
     etc.
 
-Consonants without vowels, e.g. in conjuncts, are represented by [consonant] followed by ् ("094D: DEVANAGARI SIGN VIRAMA"). Thus:
+Consonants without vowels, e.g. in conjuncts, are represented by [consonant] followed by [ ्] ("094D: DEVANAGARI SIGN VIRAMA"). Thus:
 
     ख्     0916 094D (DEVANAGARI LETTER KHA, DEVANAGARI SIGN VIRAMA)
     मुख्य    092E 0941 0916 094D 092F (DEVANAGARI LETTER MA, DEVANAGARI VOWEL SIGN U, DEVANAGARI LETTER KHA, DEVANAGARI SIGN VIRAMA, DEVANAGARI LETTER YA)
@@ -110,6 +107,11 @@ And vowels that do not follow a consonant (i.e. are at the beginning of words) t
     कैः  0915 0948 0903 DEVANAGARI LETTER KA, DEVANAGARI VOWEL SIGN AI, DEVANAGARI SIGN VISARGA
 ------------------------------------------------------------    
 
+You can also play around with R. Ishida's [Devanagari character
+picker][2] to get an idea.
+
+[2]: http://people.w3.org/rishida/scripts/pickers/devanagari/
+
 Internal representation
 =======================
 
@@ -119,12 +121,26 @@ irritating to deal with, since we need to treat the vowel **a** as a
 special case -- it does not correspond to the notation used by any of
 the English scripts, so this would make incremental transliteration
 difficult. Therefore, I instead made the somewhat strange choice of
-using the following "canonical" representation internally.
+using the following "canonical"/intermediate representation of the
+Indian script internally.
 
-It is a string of characters 
+It is a string of Devanagari (or other Indian script) characters that
+somewhat corresponds to the IAST representation, except for the fact
+that consonants get *two characters* (KA + VISARGA), etc.  Thus "ki"
+is represented as KA + VISARGA + I, and so on. This removes
 
+1. the need for special-casing the vowel 'a',
 
+2. the need for keeping track of whether the bare vowel or matra sign
+is intended.
 
+Devanagari can be converted to this intermediate representation in
+quite a straightforward way, and this intermediate representation can
+be converted to Devanagari as well.
+
+Does this intermediate representation really help, or does it simply
+add a unnecessary layer of complexity? Well, it seems to help keep the
+transliteration part straightforward.
 
 <<*>>=
 /* Do the conversion */

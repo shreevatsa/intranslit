@@ -1,6 +1,15 @@
+/*
+Not yet complete.
+
+The base code for transliteration of Indian languages in general.
+
+In principle something like this could work for any set of alphabets, but I'm not seeking such generality.
+*/
+
 if(!this.SKconvert) {
-    //To avoid creating global variables put everything in a "closure"
+    //To avoid creating global variables put everything in a "closure", returning only things that need to be "global"
     this.SKconvert = function () {
+        //For non-Firebug users, console.log should do nothing (not give an error)
         if(typeof(console) === "undefined" || typeof(console.log) === "undefined") var console = { log: function() { } };
 
         Array.prototype.contains = function(obj) {
@@ -17,6 +26,7 @@ if(!this.SKconvert) {
         function maketrie(table) {
             var root = {};
             for(var s in table) {
+                //Go down the tree, following the letters of s
                 var where = root;
                 for(var i=0; i<s.length; ++i) {
                     if(where[s[i]] === undefined) where[s[i]] = {};
@@ -30,24 +40,29 @@ if(!this.SKconvert) {
         //Convert a string using a labelled trie
         function convert(s, trie) {
             var out = '';
-            var where = trie, d = 0, a = '', b = 0; //d = depth, a = parsed part, b = length of unparsed part
+            //d = depth, a = parsed part, b = length of unparsed part
+            var where = trie, d = 0, a = '', b = 0;
             var i = 0;
             while(i < s.length) {
                 var c = s[i]; ++i;
                 ++d;
                 ++b;
-                if(where[c] !== undefined) { //If there is a child in the trie, just follow it
+                //If there is a child in the trie, just follow it
+                if(where[c] !== undefined) { 
                     where = where[c];
                     if(where.label !== undefined) {
                         a = where.label; b = 0;
                     }
                 }
-                else {                  // else, go back to the root
-                    if(b==d) { //"Parse" the first character
+                // else, go back to the root
+                else {                  
+                    //If nothing has been parsed, declare the first character as parsed 
+                    if(b==d) {
                         a = s[i-b];
                         --b;
                     }
                     out += a;
+                    //Go back to unparsed, and start over. (TODO: here a KMP table would help)
                     i -= b;
                     where = trie; d = 0; a = ''; b = 0;
                 }
