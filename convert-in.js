@@ -6,9 +6,9 @@ The base code for transliteration of Indian languages in general.
 In principle something like this could work for any set of alphabets, but I'm not seeking such generality.
 */
 
-if(!this.SKconvert) {
+if(!this.INtranslit) {
     //To avoid creating global variables put everything in a "closure", returning only things that need to be "global"
-    this.SKconvert = function () {
+    this.INtranslit = function () {
         //For non-Firebug users, console.log should do nothing (not give an error)
         if(typeof(console) === "undefined" || typeof(console.log) === "undefined") var console = { log: function() { } };
 

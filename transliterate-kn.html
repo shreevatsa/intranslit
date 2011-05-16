@@ -97,12 +97,12 @@ for(var i=0; i< alldivs.length; ++i) {
 
 <script>
 function fixall(tarea) {
-    var u = SKconvert[tarea.id+"2u"](tarea.value);
+    var u = INtranslit[tarea.id+"2u"](tarea.value);
     //document.writeln(tarea.value + "becomes " + u);
     for(var i=0; i<ta.length; ++i) {
       var t = ta[i].getAttribute("title");
       if(t != tarea.id) {
-        document.getElementById(t).value = SKconvert["u2"+t](u);
+        document.getElementById(t).value = INtranslit["u2"+t](u);
       }
     }
   }
