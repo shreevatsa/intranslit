@@ -11,7 +11,7 @@ var vowels=['ಅ', 'ಆ', 'ಇ', 'ಈ', 'ಉ', 'ಊ',
          'ಎ', 'ಏ', 'ಐ',
          'ಒ', 'ಓ', 'ಔ'];
 
-var symbols = ['ಂ', 'ಃ'];
+var symbols = ['ಂ', 'ಃ', 'ಽ'];
 var noncons = vowels.length + symbols.length;
 var consonants = [
     'ಕ', 'ಖ', 'ಗ', 'ಘ', 'ಙ',
@@ -30,7 +30,7 @@ var alphabets = {
                   'R', 'RR', 'lR', 'lRR',
                   'e', 'E', 'ai',
                   'o', 'O', 'au',
-                  'M', 'H',
+                  'M', 'H', '\'',
 
                   'k', 'kh', 'g', 'gh', 'G',
                   'c', 'ch', 'j', 'jh', 'J',
@@ -44,7 +44,7 @@ var alphabets = {
               ['RRi','R^i'], ['RRI','R^I'], ['LLi','L^i'], ['LLI','L^I'],
               'e', 'E', 'ai',
               'o', 'O', 'au',
-              'M', 'H',
+               'M', 'H', '\'',
 
               'k', 'kh', 'g', 'gh', ['~N','N^'],
               'ch', 'Ch', 'j', 'jh', ['~n','JN'],
@@ -58,7 +58,7 @@ var alphabets = {
               '.r', '.rr', '.l', '.ll',
               'e', '.e', 'ai',
               'o', '.o', 'au',
-              '.m', '.h',
+               '.m', '.h', '\'',
 
               'k', 'kh', 'g', 'gh', '"n',
               'c', 'ch', 'j', 'jh', '~n',
@@ -72,7 +72,8 @@ var alphabets = {
                 'ṛ', 'ṝ', 'ḷ', 'ḹ',
                 'e', 'ē', 'ai',
                 'o', 'ō', 'au',
-                'ṃ', 'ḥ',
+
+                  'ṃ', 'ḥ', '\'',
 
                 'k', 'kh', 'g', 'gh', 'ṅ',
                 'c', 'ch', 'j', 'jh', 'ñ',
@@ -86,7 +87,7 @@ var alphabets = {
                 'Ṛ', 'Ṝ', 'Ḷ', 'Ḹ',
                 'E', 'Ē', 'Ai',
                 'O', 'Ō', 'Au',
-                'Ṃ', 'Ḥ',
+                  'Ṃ', 'Ḥ', '\'',
 
                 'K', 'Kh', 'G', 'Gh', 'Ṅ',
                 'C', 'Ch', 'J', 'Jh', 'Ñ',
@@ -99,7 +100,8 @@ var alphabets = {
 'ipa':           ['ɐ', 'ɑː', 'i', 'iː', 'u', 'uː',
                   'ɻ', 'ɻː', 'ɭ', 'ɭː',
                   'eː', 'əi', 'oː', 'əu',
-                  'MMMMMMMMMMMMMMMMMMMM', 'HHHHHHHHHHHHHHHHHHHH',
+
+                  '[anusvara]', '[visarga]', '[elided a]',
 
                   'k', 'kʰ', 'g', 'gʱ', 'ŋ',
                   //'c͡ç', 'c͡çʰ', 'ɟ͡ʝ', 'ɟ͡ʝʱ', 'ɲ',
