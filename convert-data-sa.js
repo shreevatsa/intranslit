@@ -1,18 +1,16 @@
 var virama = '्';
 var implicita = 'अ';
-
 var barematras = {
   'sk' : ['', 'ा', 'ि', 'ी', 'ु', 'ू',
           'ृ', 'ॄ', 'ॢ', 'ॣ',
           'े', 'ै',
-          'ो', 'ौ',
-          'ं', 'ः']
+          'ो', 'ौ']
 };
-
 var vowels = ['अ', 'आ', 'इ', 'ई', 'उ', 'ऊ',
               'ऋ', 'ॠ', 'ऌ', 'ॡ',
-              'ए', 'ऐ', 'ओ', 'औ',
-              'ं', 'ः'];
+              'ए', 'ऐ', 'ओ', 'औ'];
+var symbols = ['ं', 'ः'];
+var noncons = vowels.length + symbols.length;
 
 var consonants = ['क', 'ख', 'ग', 'घ', 'ङ',
                   'च', 'छ', 'ज', 'झ', 'ञ',
@@ -24,7 +22,7 @@ var consonants = ['क', 'ख', 'ग', 'घ', 'ङ',
 
 var alphabets = {
 
-  'sk': vowels.concat(consonants),
+'sk': vowels.concat(symbols).concat(consonants),
 
 'harvardkyoto':['a', 'A', 'i', 'I', 'u', 'U',
               'R', 'RR', 'lR', 'lRR',

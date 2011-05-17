@@ -76,7 +76,7 @@ if(!this.INtranslit) {
         function to_sk(alphabet) {
             var ret = {};
             for(var i in alphabet) {
-                var rhs = alphabets['sk'][i] + (i>=barematras['sk'].length ? virama : '');
+                var rhs = alphabets['sk'][i] + (i>=noncons ? virama : '');
                 if(typeof(alphabet[i])=='string') ret[alphabet[i]] = rhs;
                 else {
                     for(var c in alphabet[i]) ret[alphabet[i][c]] = rhs;
@@ -89,7 +89,7 @@ if(!this.INtranslit) {
         function from_sk(alphabet) {
             var ret = {};
             for(var i in alphabet) {
-                var lhs = alphabets['sk'][i] + (i>=barematras['sk'].length ? virama : '');
+                var lhs = alphabets['sk'][i] + (i>=noncons ? virama : '');
                 if(typeof(alphabet[i])=='string') ret[lhs] = alphabet[i];
                 else ret[lhs] = alphabet[i][0];
             }
@@ -146,7 +146,7 @@ if(!this.INtranslit) {
         }
 
         var vowel = { };
-        for(var i=1; i<barematras['sk'].length - 2; ++i) {
+        for(var i=1; i<barematras['sk'].length; ++i) {
           vowel[barematras['sk'][i]] = vowels[i];
         }
         
