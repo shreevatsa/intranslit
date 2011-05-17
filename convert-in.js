@@ -65,12 +65,14 @@ if(!this.INtranslit) {
                     where = trie; d = 0; a = ''; b = 0;
                 }
             }
+            //Leftovers
             out += a+s.substr(i-b);
             return out;
         }
 
         //////////////////////////////////////////////////////////////////////
-        //Make object like {'a':'अ', 'A':'आ', 'ai':'ऐ', 'au':'औ', 'k':'क्'}
+        //Make object like {'a':'अ', 'A':'आ', 'ai':'ऐ', 'au':'औ', 'k':'क्'},
+        //given alphabet like ['a', 'A', 'ai', 'au', 'k']
         function to_sk(alphabet) {
             var ret = {};
             for(var i in alphabet) {
