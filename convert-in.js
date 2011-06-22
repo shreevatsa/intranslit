@@ -1,5 +1,7 @@
 /*
-The base code for transliteration of Indian languages (or "abugidas") in general.
+Not yet complete.
+
+The base code for transliteration of Indian languages in general.
 
 In principle something like this could work for any set of alphabets, but I'm not seeking such generality.
 */
@@ -65,14 +67,12 @@ if(!this.INtranslit) {
                     where = trie; d = 0; a = ''; b = 0;
                 }
             }
-            //Leftovers
             out += a+s.substr(i-b);
             return out;
         }
 
         //////////////////////////////////////////////////////////////////////
-        //Make object like {'a':'अ', 'A':'आ', 'ai':'ऐ', 'au':'औ', 'k':'क्'},
-        //given alphabet like ['a', 'A', 'ai', 'au', 'k']
+        //Make object like {'a':'अ', 'A':'आ', 'ai':'ऐ', 'au':'औ', 'k':'क्'}
         function to_sk(alphabet) {
             var ret = {};
             for(var i in alphabet) {
